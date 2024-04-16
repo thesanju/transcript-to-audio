@@ -8,6 +8,7 @@ import yaml
 import streamlit_authenticator as stauth
 from yaml.loader import SafeLoader
 
+
 st.set_page_config(
     page_title="Wall-e",
     page_icon="🎤",

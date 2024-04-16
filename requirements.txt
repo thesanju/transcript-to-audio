@@ -3,4 +3,4 @@ requests
 streamlit
 PyYAML
 streamlit-authenticator
-ffmpeg-python
+ffmpeg
