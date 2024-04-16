@@ -10,8 +10,8 @@ credentials:
       password:  $2b$12$2/T1RPz7/N9JpRtPRTjsJu5t38P7az5DSQ6XkmdFpoAJL4z4vNfmy
 cookie:
   expiry_days: 0
-  key: random_signature_key
-  name: random_cookie_name
+  key: PPuSyqhOw6pnp5jh4kpKFws1
+  name: kWTIFgPqEl19
 preauthorized:
   emails:
   - melsby@gmail.com
