@@ -31,8 +31,8 @@ if st.session_state["authentication_status"]:
     st.sidebar.write(f'Welcome *{st.session_state["name"]}* 👋')
     authenticator.logout(location='sidebar',)
 
-    # api_key = ""
-    api_key = st.secrets["LABS_API_KEY"]
+    api_key = "bff6481383627446b0a121476b42e663"
+    # api_key = st.secrets["LABS_API_KEY"]
 
 
     # Define available voices
