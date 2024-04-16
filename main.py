@@ -1,13 +1,11 @@
 import os
 import requests
-from pydub import AudioSegment
-import io
-import ffmpeg
+import wave
+import contextlib
 import streamlit as st
 import yaml
 import streamlit_authenticator as stauth
 from yaml.loader import SafeLoader
-
 
 st.set_page_config(
     page_title="Wall-e",
@@ -33,9 +31,8 @@ if st.session_state["authentication_status"]:
     st.sidebar.write(f'Welcome *{st.session_state["name"]}* 👋')
     authenticator.logout(location='sidebar',)
 
-    # api_key = ""
     api_key = st.secrets["LABS_API_KEY"]
-
+    # api_key = ""
 
     # Define available voices
     available_voices = {
@@ -73,20 +70,27 @@ if st.session_state["authentication_status"]:
                                 speaker, text = line.split(": ", 1)
                                 if speaker in speaker_voices:
                                     voice_id = speaker_voices[speaker]
-                                    url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
+                                    url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/stream"
                                     headers = {
                                         "Content-Type": "application/json",
                                         "xi-api-key": api_key
                                     }
                                     payload = {
                                         "text": text,
-                                        "model_id": "eleven_monolingual_v1"
+                                        "model_id": "eleven_monolingual_v1",
+                                        "voice_settings": {
+                                            "stability": 0.4,
+                                            "similarity_boost": 0.75
+                                        }
                                     }
-                                    response = requests.post(url, json=payload, headers=headers)
+                                    response = requests.post(url, json=payload, headers=headers, stream=True)
                                     if response.status_code == 200:
-                                        audio_data = response.content
-                                        audio_segment = AudioSegment.from_file(io.BytesIO(audio_data), format="mp3")
-                                        audio_segments.append((speaker, audio_segment))
+                                        with contextlib.closing(wave.open('temp.wav', 'wb')) as wav:
+                                            wav.setparams((1, 2, 24000, 0, 'NONE', 'NONE'))
+                                            for chunk in response.iter_content(chunk_size=1024):
+                                                if chunk:
+                                                    wav.writeframes(chunk)
+                                        audio_segments.append(wave.open('temp.wav', 'rb'))
                                     else:
                                         st.error(f"Error generating audio for speaker {speaker}: {response.text}")
                             except ValueError:
@@ -94,29 +98,32 @@ if st.session_state["authentication_status"]:
             else:
                 st.warning("The transcript file is empty or does not contain valid lines.")
 
-            combined_audio = AudioSegment.empty()
-            for speaker, segment in audio_segments:
-                combined_audio += segment
+            combined_frames = b''.join(segment.readframes(segment.getnframes()) for segment in audio_segments)
+            for segment in audio_segments:
+                segment.close()
 
-            output_file = "output.mp3"
-            combined_audio.export(output_file, format="mp3")
+            output_file = "output.wav"
+            with wave.open(output_file, 'wb') as wav:
+                wav.setparams((1, 2, 24000, 0, 'NONE', 'NONE'))
+                wav.writeframes(combined_frames)
+
             st.success(f"Audio Processing Done")
 
             # Display audio player
             audio_file = open(output_file, 'rb')
             audio_bytes = audio_file.read()
-            st.audio(audio_bytes, format='audio/mp3')
+            st.audio(audio_bytes, format='audio/wav')
 
             # Create download button
             with open(output_file, "rb") as file:
                 st.download_button(
                     label="Download Audio File",
                     data=file,
-                    file_name="output.mp3",
-                    mime="audio/mp3",
+                    file_name="output.wav",
+                    mime="audio/wav",
                 )
 
 elif st.session_state["authentication_status"] is False:
-        st.error('Username/password is incorrect')
+    st.error('Username/password is incorrect')
 elif st.session_state["authentication_status"] is None:
-        st.warning('Please enter your username and password')
+    st.warning('Please enter your username and password')
