@@ -1,2 +1,8 @@
 Financial Planner: Good afternoon! Welcome to our office. How has your day been so far?
-Client A: Hi, thank you for having me. It's been good.
+Client A: Hi, thank you for having me. It's been good, though a bit busy with all the running around and errands. How about you? How's your day going?
+Financial Planner: It's been quite productive, thank you! Just the usual day at the office with meetings and client calls. Did you have a good weekend?
+Client A: Yes, it was quite relaxing. Spent some time trying out a new recipe and just unwinding at home with a good movie. How about you? Did you do anything exciting?
+Financial Planner: Oh, that sounds lovely! I actually went to a local art exhibit, which was quite inspiring. But let’s get down to business. I understand you’re here to discuss some financial planning and insurance options, is that right?
+Client A: Yes, that's correct. I've recently taken a big step by purchasing a property with my partner, and it got me thinking about financial security and insurance, especially since I'm self-employed.
+
+
