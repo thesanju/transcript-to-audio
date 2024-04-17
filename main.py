@@ -95,7 +95,7 @@ if st.session_state["authentication_status"]:
             for speaker, segment in audio_segments:
                 combined_audio += segment
 
-            output_file = "output.mp3"
+            output_file = "podcast.mp3"
             combined_audio.export(output_file, format="mp3")
             st.success(f"Audio Processing Done")
 
@@ -109,8 +109,8 @@ if st.session_state["authentication_status"]:
                 st.download_button(
                     label="Download Audio File",
                     data=file,
-                    file_name="output.mp3",
-                    mime="audio/mp3",
+                    file_name="podcast.mp3",
+                    mime="audio/mpeg",
                 )
 
 elif st.session_state["authentication_status"] is False:
