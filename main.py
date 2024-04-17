@@ -32,7 +32,7 @@ if st.session_state["authentication_status"]:
     authenticator.logout(location='sidebar',)
 
     api_key = st.secrets["LABS_API_KEY"]
-    # api_key = "71093951a42f0b8154d31a19ff3fa429"
+    # api_key = ""
 
     # Define available voices
     available_voices = {
