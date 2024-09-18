@@ -1,17 +1,17 @@
 credentials:
   usernames:
     sanju:
-      email: sanju@gmail.com
+      email: sanju@gmail.com 
       name: sanju
-      password: $2b$12$NX3/5WNiSa3K/TlxEl752OMtPx5Es3KP4OXaWE7Y2p6UBPH5ZPj9i # To be replaced with hashed password
+      password: "123@abc" # To be replaced with hashed password
     tzvi:
-      email: tzvi@gmail.com
+      email: tzvi@gmail.com 
       name:  Tzvi
-      password:  $2b$12$2/T1RPz7/N9JpRtPRTjsJu5t38P7az5DSQ6XkmdFpoAJL4z4vNfmy
+      password:  "dsfjhk" # this is plane text, use hashed password
 cookie:
   expiry_days: 0
-  key: PPuSyqhOw6pnp5jh4kpKFws1
-  name: kWTIFgPqEl19
+  key: PPuSyqhOw6pnp5jh4kpKFws #used for cookie authentication 
+  name: kWTIFgPqEl19 #cookie name
 preauthorized:
   emails:
-  - melsby@gmail.com
+  - melsby@gmail.com 
