@@ -4,7 +4,7 @@ from pydub import AudioSegment
 import io
 
 # Set up ElevenLabs API key
-api_key = "bff6481383627446b0a121476b42e663"
+api_key = "xxxxxxx"
 
 # Define voice options
 voices = {
